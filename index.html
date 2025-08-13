@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Anton Lundberg – Curriculum Vitae" />
+  <title>Anton Lundberg – Lead Audio Programmer · DSP Engineer · Real-Time System Developer</title>
+
+  <!-- Fonts (system stack for speed/print reliability) -->
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-elev: #f7f7f8;
+      --text: #0b0b0c;
+      --muted: #5f6368;
+      --accent: #3b82f6;
+      --border: #e6e6eb;
+      --chip-bg: #eef2ff;
+      --chip-text: #1e3a8a;
+      --shadow: 0 1px 2px rgba(0,0,0,.06), 0 2px 6px rgba(0,0,0,.05);
+    }
+    :root.dark {
+      --bg: #0b0c10;
+      --bg-elev: #121318;
+      --text: #e6e6ea;
+      --muted: #a1a1aa;
+      --accent: #60a5fa;
+      --border: #1f2430;
+      --chip-bg: #1b2436;
+      --chip-text: #cbd5e1;
+      --shadow: 0 1px 2px rgba(0,0,0,.6), 0 2px 6px rgba(0,0,0,.35);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not(.light) { color-scheme: dark; }
+    }
+
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font: 15px/1.5 -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Ubuntu,Inter,system-ui,Helvetica,Arial,sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Layout */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    header.topbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner {
+      display: flex; gap: 16px; align-items: center; justify-content: space-between;
+      padding: 12px 24px;
+      max-width: 800px; margin: 0 auto;
+    }
+    .brand { font-weight: 700; letter-spacing: .2px; }
+    .brand small { font-weight: 500; color: var(--muted); }
+
+    .actions { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      appearance: none; border: 1px solid var(--border);
+      background: var(--bg-elev); color: var(--text);
+      padding: 8px 12px; border-radius: 999px; cursor: pointer;
+      box-shadow: var(--shadow); font-weight: 600; font-size: 14px;
+    }
+    .btn:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn.link { background: transparent; border: none; box-shadow: none; color: var(--accent); }
+
+    /* Hero */
+    .hero { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; padding: 24px 0 8px; margin: 0; }
+    .hero h1 { font-size: clamp(28px, 4vw, 40px); margin: 0; }
+    .subtitle { color: var(--muted); font-size: 16px; }
+
+    .contact {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;
+    }
+    .chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 10px; border-radius: 999px; font-size: 13px; font-weight: 600;
+      background: var(--chip-bg); color: var(--chip-text); border: 1px solid var(--border);
+    }
+    .chip a { color: inherit; text-decoration: none; }
+
+    .profile-pic { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); box-shadow: var(--shadow); }
+
+    /* Sections */
+    section { padding: 16px 0; }
+    section h2 {
+      font-size: 18px; letter-spacing: .3px; text-transform: uppercase; color: var(--muted);
+      margin: 8px 0 8px; border-top: 1px solid var(--border); padding-top: 16px;
+    }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+
+    /* Summary */
+    .summary { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); }
+    .summary p { margin: 0; line-height: 1.6; }
+
+    /* Skills */
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 10px; padding: 6px 10px; font-weight: 600; font-size: 13px; }
+
+    /* Experience */
+    .item { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 12px 0; }
+    .item h3 { margin: 0; font-size: 16px; }
+    .item .meta { color: var(--muted); font-size: 13px; }
+    .bullets { margin: 8px 0 0 0; padding-left: 18px; font-size: 14px; }
+    .bullets li { margin: 6px 0; }
+
+    /* Two-column description lists for compact print */
+    .dl { display: grid; grid-template-columns: 120px 1fr; gap: 8px 16px; }
+    @media (max-width: 640px) { 
+      .dl { grid-template-columns: 1fr; }
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .profile-pic { margin: 0 auto; }
+    }
+    .dl dt { font-weight: 700; }
+    .dl dd { margin: 0; color: var(--muted); }
+    .dl.small { font-size: 14px; }
+
+    footer {
+      border-top: 1px solid var(--border); margin-top: 24px; padding: 16px;
+      color: var(--muted); font-size: 13px; text-align: center;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+
+    /* Print styles */
+    @media print {
+      :root { --bg: #ffffff; --text: #000000; --muted: #303030; --border: #00000020; --bg-elev: #ffffff; --accent: #000000; }
+      body { background: #ffffff; }
+      header.topbar, .actions, .chip a[href^="mailto" i]::after { display: none !important; }
+      .hero { padding-top: 0; }
+      .container { max-width: none; padding: 8mm 16mm; }
+      article.item { break-inside: avoid; page-break-inside: avoid; }
+      section h2 { border-top: none; padding-top: 0; }
+      .summary, .tag { box-shadow: none; }
+      /* Page setup for A4/Letter */
+      @page { size: A4 portrait; margin: 8mm; }
+      /* Allow browsers that prefer Letter */
+      /* Some engines ignore size; content remains clean regardless */
+      .item { break-inside: avoid; }
+      .bullets li { margin: 2mm 0; }
+      footer { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <div class="brand">Anton Lundberg <small>– Lead Audio Programmer · DSP Engineer · Real-Time System Developer</small></div>
+      <div class="actions">
+        <button id="themeToggle" class="btn" aria-label="Toggle dark mode" title="Toggle light/dark">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+    <!-- Hero / Identity -->
+    <section class="hero">
+      <img src="pic.jpg" alt="Profile picture" class="profile-pic" />
+      <div>
+        <h1>Anton Lundberg</h1>
+        <div class="subtitle">Lead Audio Programmer · DSP Engineer · Real-Time System Developer</div>
+        <div class="contact" aria-label="Contact and links">
+          <span class="chip">📧 <a href="mailto:anton@repul.se">anton@repul.se</a></span>
+          <span class="chip">💻 <a href="https://github.com/antberg" target="_blank" rel="noopener">github.com/antberg</a></span>
+          <span class="chip">in <a href="https://www.linkedin.com/in/anton-lundberg" target="_blank" rel="noopener">linkedin.com/in/anton-lundberg</a></span>
+          <span class="chip">📍 Stockholm, Sweden · CET/CEST</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="summary">
+        <p>
+          Lead Runtime Developer at elias.audio, building cross-platform audio middleware and authoring tools. Passionate about game audio technology and how its applied to interactive storytelling. Extensive experience in DSP and real-time systems development in C++. Strong theoretical foundation in physics and mathematics from a M.Sc. degree in Computer Science & Engineering.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Core Skills</h2>
+      <div class="grid">
+        <div class="tags">
+          <span class="tag">C++11/14/17/20</span>
+          <span class="tag">Real-Time Systems</span>
+          <span class="tag">DSP</span>
+          <span class="tag">Lock-/Wait-Free Algorithms</span>
+          <span class="tag">Physics</span>
+          <span class="tag">Math</span>
+          <span class="tag">Spatialization</span>
+          <span class="tag">Acoustics</span>
+          <span class="tag">Streaming & Decoding</span>
+          <span class="tag">SIMD</span>
+          <span class="tag">Plugin Frameworks</span>
+          <span class="tag">Diagnostics & Profiling</span>
+          <span class="tag">Data-Oriented Design</span>
+          <span class="tag">Networking & IPC</span>
+          <span class="tag">Tooling</span>
+        </div>
+        <div>
+          <dl class="dl">
+            <dt>Platforms</dt><dd>Windows, Linux, Android, macOS, iOS, PS4/5, Xbox One/Series X|S, Switch</dd>
+            <dt>Languages</dt><dd>C++, C, Python</dd>
+            <dt>Tools</dt><dd>CMake, Premake</dd>
+            <dt>Game Engines</dt><dd>Unreal, Unity, Proprietary</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+      <article class="item">
+        <div>
+          <h3>Lead Runtime Developer & Co-Founder – elias.audio</h3>
+          <div class="meta">2022–Present · Stockholm, Sweden</div>
+          <ul class="bullets">
+            <li>Lead development of a modular audio engine with core functionality separated into plugins, fully customizable and extendible.</li>
+            <li>Integrated middleware with a studio's proprietary engine and worked as technical sound designer in close collaboration with sound designers, composers and other developers.</li>
+            <li>Developed a spatialization system with tools for designing HRTF and attenuation filters using curve editors.</li>
+            <li>Implemented high-performant real-time DSP, such as a non-uniformly partitioned FIR filter for convolution reverbs, gaining 5-10x speedups compared to previous third-party solution.</li>
+            <li>Developed a framework for dynamic dispatch of SIMD function specializations across different CPU architectures.</li>
+            <li>Built real-time safe diagnostics tools for profiling, logging, and runtime state inspection.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="item">
+        <div>
+          <h3>Developer – Elias Software</h3>
+          <div class="meta">2020–2022 · Stockholm, Sweden</div>
+          <ul class="bullets">
+            <li>Inter-process communication between authoring tools and game-engine integrations using TCP, enabling live-editing of audio assets and quick iteration cycles.</li>
+            <li>Game-engine integrations for Unreal Engine and a proprietary engine.</li>
+            <li>Platform builds for PlayStation 4/5, Xbox One/Series X|S, and Nintendo Switch.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="item">
+        <div>
+          <h3>Summer/Thesis Intern, Researcher – Ericsson Research, Audio Technology</h3>
+          <div class="meta">2018, 2020 · Stockholm, Sweden</div>
+          <ul class="bullets">
+            <li>Researched spatial audio and Ambisonics.</li>
+            <li>Implemented calibration tools for speaker arrays.</li>
+            <li>Researched procedural car engine sound synthesis using generative AI.</li>
+            <li>Implemented an A/B test framework.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="item">
+        <div>
+          <h3>Summer Intern – COMSOL AB</h3>
+          <div class="meta">2019 · Stockholm, Sweden</div>
+          <ul class="bullets">
+            <li>Developed a Gaussian process regression framework as a Java add-on for COMSOL.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="item">
+        <div>
+          <h3>Summer Intern – University of Texas at Austin</h3>
+          <div class="meta">2017 · Austin, TX, USA</div>
+          <ul class="bullets">
+            <li>Worked on AI and motion planning using POMDPs with human inference integration.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="item">
+        <div>
+          <h3>Summer Intern – Zhejiang University</h3>
+          <div class="meta">2016 · Hangzhou, China</div>
+          <ul class="bullets">
+            <li>Implemented MATLAB algorithms for auto-multiscopic 3D imagery layer masks.</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <article class="item">
+        <div>
+          <h3>M.Sc. Computer Science & Engineering / Civilingenjör Teknisk Fysik</h3>
+          <div class="meta">2018–2020 · KTH Royal Institute of Technology, Stockholm, Sweden</div>
+          <dl class="dl small">
+            <dt>Specialization</dt><dd>Systems, Control & Robotics: Autonomous Systems</dd>
+            <dt>GPA</dt><dd>4.92 (max 5.0)</dd>
+            <dt>Thesis</dt><dd>Data-Driven Procedural Audio: Procedural Engine Sounds Using Neural Audio Synthesis</dd>
+            <dt>Scholarships</dt><dd>Henrik Göranssons Sandviken stipendiefond – 67k SEK for outstanding grades</dd>
+            <dt>Extracurricular</dt><dd>Teaching assistant – EL1000 Automatic Control</dd>
+            <dt>Subjects</dt><dd>Robotics, Control Theory, Dynamical Systems, Computer Vision, Algorithms, Artificial Intelligence, Machine Learning, Deep Learning, Reinforcement Learning</dd>
+          </dl>
+        </div>
+      </article>
+      <article class="item">
+        <div>
+          <h3>B.Sc. Engineering Physics</h3>
+          <div class="meta">2015–2018 · KTH Royal Institute of Technology, Stockholm, Sweden</div>
+          <dl class="dl small">
+            <dt>GPA</dt><dd>4.93 (max 5.0)</dd>
+            <dt>Thesis</dt><dd>Tracking of Stochastically Moving Targets Using Partial Information and Human Inference</dd>
+            <dt>Scholarships</dt><dd>Gustav och Maria Grevillius fond – 25k SEK for outstanding grades</dd>
+            <dt>Extracurricular</dt><dd>Teaching assistant – SG1109 Mechanics, SF1628 Complex Analysis</dd>
+            <dt>Exchange</dt><dd>The University of Texas at Austin – Fall 2017, Austin, TX, USA</dd>
+            <dt>Subjects</dt><dd>Linear Algebra, Calculus, Complex Analysis, Mechanics, Thermodynamics, Statistical Physics, Quantum Physics, Electrodynamics, Computer Science, Programming, Control Theory</dd>
+          </dl>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Anton Lundberg
+    </footer>
+  </main>
+
+  <!-- Structured data (helps crawlers/SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Anton Lundberg",
+    "jobTitle": "Lead Audio Programmer · DSP Engineer · Real-Time System Developer",
+    "url": "https://repul.se",
+    "sameAs": [
+      "https://github.com/antberg",
+      "https://www.linkedin.com/in/anton-lundberg"
+    ]
+  }
+  </script>
+
+  <!-- Minimal JS for theme + year -->
+  <script>
+    const root = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    const stored = localStorage.getItem('theme');
+    if (stored === 'dark') root.classList.add('dark');
+    if (stored === 'light') root.classList.add('light');
+    updateIcon();
+
+    btn.addEventListener('click', () => {
+      if (root.classList.contains('dark')) {
+        root.classList.remove('dark');
+        root.classList.add('light');
+        localStorage.setItem('theme', 'light');
+      } else if (root.classList.contains('light')) {
+        root.classList.remove('light');
+        root.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        // dark is default follows system; switch to opposite of system preference
+        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        root.classList.toggle('dark', !prefersLight);
+        root.classList.toggle('light', prefersLight);
+        localStorage.setItem('theme', 'dark');
+      }
+      updateIcon();
+    });
+
+    function updateIcon(){
+      btn.textContent = root.classList.contains('dark') ? '☀️' : '🌙';
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
